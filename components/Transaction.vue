@@ -9,7 +9,7 @@
       select-text
     "
   >
-    <h1 class="text-sm">{{ from }}</h1>
+    <h1 class="text-sm">{{ getFromName }}</h1>
     <hr />
     <h1 :class="positiv ? 'text-green-300' : 'text-red-300'">
       {{ positiv ? '+' : '-' }} {{ money }}€
@@ -19,7 +19,10 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue'
+import { mapState } from 'vuex'
+
+export default Vue.extend({
   props: {
     money: {
       type: String,
@@ -38,7 +41,15 @@ export default {
       default: true,
     },
   },
-}
+  computed: {
+    ...mapState(['saved']),
+    getFromName() {
+      const val: any = Array.from(this.saved).find((el: any) => {
+        return el.iban === this.from
+      })
+      return val === undefined ? this.from : val.name
+      // return this.from
+    },
+  },
+})
 </script>
-
-<style></style>

@@ -13,6 +13,7 @@
         h-40
         m-9
       "
+      @click="$router.push('deposit')"
     >
       <h1 class="text-5xl">Einzahlen</h1>
     </div>
@@ -28,6 +29,7 @@
         h-40
         m-9
       "
+      @click="push('withdraw')"
     >
       <h1 class="text-5xl">Abheben</h1>
     </div>
@@ -43,6 +45,7 @@
         h-40
         m-9
       "
+      @click="push('transferselect')"
     >
       <h1 class="text-5xl">Überweisen</h1>
     </div>
@@ -63,7 +66,13 @@ export default Vue.extend({
   computed: {
     ...mapState(['accounts', 'visible', 'currentAccount']),
   },
-  mounted() {},
+  methods: {
+    push(route: string) {
+      if (!this.currentAccount.restricted) {
+        this.$router.push(route)
+      }
+    },
+  },
 })
 </script>
 

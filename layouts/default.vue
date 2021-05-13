@@ -1,12 +1,15 @@
 <template>
-  <div class="wrapper">
-    <div
-      class="grid-container"
-      :style="visible ? 'display:grid' : 'display:none'"
-    >
+  <div class="wrapper" :style="visible ? 'display:grid' : 'display:none'">
+    <div class="grid-container">
       <div class="Main">
         <div class="grid-container2">
           <div class="X flex justify-center items-center pt-1">
+            <fa
+              v-if="showBack"
+              icon="home"
+              class="close cursor-pointer mr-2"
+              @click="$router.push('/')"
+            ></fa>
             <fa
               icon="times"
               size="lg"
@@ -15,7 +18,10 @@
             ></fa>
           </div>
           <div class="Money pt-9">
-            <MoneyDisplay class="counter"></MoneyDisplay>
+            <MoneyDisplay
+              class="counter"
+              :value="currentAccount.balance.toString()"
+            ></MoneyDisplay>
           </div>
           <div class="Title pt-5"><Logo></Logo></div>
           <div class="Content"><Nuxt /></div>
@@ -37,7 +43,9 @@
         <hr class="line" />
         <div class="overflow-auto scrool">
           <Transaction
-            v-for="transaction in currentAccount.transactions"
+            v-for="transaction in Array.from(
+              currentAccount.transactions
+            ).reverse()"
             :key="transaction.id"
             :from="transaction.from"
             :money="transaction.money"
@@ -62,23 +70,33 @@ export default Vue.extend({
   components: { Account, Logo, MoneyDisplay, Transaction },
   computed: {
     ...mapState(['accounts', 'visible', 'currentAccount']),
+    showBack() {
+      return this.$route.path !== '/'
+    },
   },
   mounted() {
     // Account switch logic
-    window.addEventListener('setActive', (event: CustomEvent) => {
-      const acc = this.accounts.find((obj) => obj.iban === event.detail.iban)
+    window.addEventListener('setActive', (event: any) => {
+      const acc = this.accounts.find(
+        (obj: { iban: String }) => obj.iban === event.detail.iban
+      )
       this.$store.dispatch('setActive', acc)
+    })
+
+    window.addEventListener('setAccounts', (event: any) => {
+      this.$store.commit('SET_ACCOUNTS', event.detail.accounts)
+      this.$store.dispatch('setActive', event.detail.accounts[0])
     })
 
     // Show and hide logic
     window.addEventListener('hide', () => {
-      this.$store.commit('setVisible', false)
+      this.$store.commit('SET_VISIBLE', false)
     })
     window.addEventListener('show', () => {
-      this.$store.commit('setVisible', true)
+      this.$store.commit('SET_VISIBLE', true)
     })
     window.addEventListener('keyup', (event) => {
-      if (event.key === 'Escape' || event.key === 'Backspace') {
+      if (event.key === 'Escape' && this.visible) {
         this.$api.hide()
       }
     })

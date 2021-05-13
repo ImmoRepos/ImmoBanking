@@ -41,7 +41,17 @@ export default {
       {
         component: 'fa',
         icons: {
-          solid: ['faHistory', 'faTimes'],
+          solid: [
+            'faHistory',
+            'faTimes',
+            'faCaretSquareDown',
+            'faCaretSquareUp',
+            'faPaperPlane',
+            'faBackspace',
+            'faHome',
+            'faTrash',
+            'faPlus',
+          ],
         },
       },
     ],
@@ -50,6 +60,15 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
 
+  router: {
+    mode: 'hash',
+    trailingSlash: false,
+  },
+
+  loading: false,
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    publicPath: '_nuxt/',
+  },
 }

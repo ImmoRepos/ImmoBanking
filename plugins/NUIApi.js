@@ -1,6 +1,6 @@
-const BASE_URL = 'http://ImmoBanking/'
+const BASE_URL = 'http://immobanking/'
 
-class API {
+export class API {
   constructor() {
     window.addEventListener('message', (event) => {
       const eventType = event.data.event
@@ -22,6 +22,18 @@ class API {
   hide() {
     window.dispatchEvent(new CustomEvent('hide'))
     this.post('hide')
+  }
+
+  withdraw(amount, iban) {
+    this.post('withdraw', { amount, iban })
+  }
+
+  deposit(amount, iban) {
+    this.post('deposit', { amount, iban })
+  }
+
+  transfer(amount, iban, target) {
+    this.post('transfer', { amount, iban, target })
   }
 
   onShow() {

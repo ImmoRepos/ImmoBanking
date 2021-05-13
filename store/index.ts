@@ -1,34 +1,66 @@
 export const state = {
   accounts: [{}],
   visible: false,
-  currentAccount: {},
+  currentAccount: {
+    name: 'Polizei Dortmund',
+    iban: '11111',
+    active: true,
+    restricted: true,
+    balance: 2000,
+    transactions: [
+      {
+        from: 'Rettungsdienst Dortmund',
+        money: '20000',
+        date: '19.09.2020 11:22',
+        id: 2,
+        positiv: true,
+      },
+    ],
+  },
+  saved: JSON.parse(window.localStorage.ib_saved || '[]'),
 }
 
 export const mutations = {
-  setAccounts(state: { accounts: Object[] }, accounts: Object[]) {
+  SET_ACCOUNTS(state: { accounts: Object[] }, accounts: Object[]) {
     state.accounts = accounts
   },
-  setVisible(state: { visible: boolean }, visible: boolean) {
+  SET_VISIBLE(state: { visible: boolean }, visible: boolean) {
     state.visible = visible
   },
-  setCurrentAccount(state: { currentAccount: Object }, currentAccount: Object) {
+  SET_CURRENT(state: { currentAccount: Object }, currentAccount: Object) {
     state.currentAccount = currentAccount
   },
-  setAccountActive(state: { currentAccount: any }) {
+  SET_ACTIVE(state: { currentAccount: any }) {
     state.currentAccount.active = true
   },
-  disableAllAccounts(state: { accounts: any[] }, newAccount: any) {
+  DISABLE_ALL(state: { accounts: any[] }, newAccount: any) {
     state.accounts.forEach((obj) => {
       if (obj.iban !== newAccount.iban) obj.active = false
     })
+  },
+  SET_SAVED(state: { saved: Object[] }, newSaved: Object[]) {
+    state.saved = newSaved
   },
 }
 
 export const actions = {
   setActive({ commit }: any, newAccount: any) {
-    commit('disableAllAccounts', newAccount)
-    commit('setCurrentAccount', newAccount)
-    commit('setAccountActive')
+    commit('DISABLE_ALL', newAccount)
+    commit('SET_CURRENT', newAccount)
+    commit('SET_ACTIVE')
+  },
+  addSaved({ commit, state }: any, { name, iban }: any) {
+    const newArr = Array.from(state.saved)
+    newArr.push({ name, iban })
+    window.localStorage.ib_saved = JSON.stringify(newArr)
+    commit('SET_SAVED', newArr)
+  },
+  removeSaved({ commit, state }: any, iban: String) {
+    const newArr = state.saved.filter(
+      (el: { iban: String }) => el.iban !== iban
+    )
+    window.localStorage.ib_saved = JSON.stringify(newArr)
+    commit('SET_SAVED', newArr)
   },
 }
 
@@ -38,6 +70,7 @@ if (process.env.NODE_ENV === 'development') {
       name: 'Polizei Dortmund',
       iban: '11111',
       active: true,
+      restricted: true,
       balance: 2000,
       transactions: [
         {
@@ -56,8 +89,8 @@ if (process.env.NODE_ENV === 'development') {
       balance: 20000000,
       transactions: [
         {
-          from: 'Kachi',
-          money: '3300000',
+          from: 'Stahl',
+          money: '500000000',
           date: '19.09.2020 11:22',
           positiv: false,
           id: 3,
@@ -119,7 +152,7 @@ if (process.env.NODE_ENV === 'development') {
           id: 11,
         },
         {
-          from: 'Kachi',
+          from: 'Laa',
           money: '3300000',
           date: '19.09.2020 11:22',
           positiv: false,
@@ -128,6 +161,26 @@ if (process.env.NODE_ENV === 'development') {
       ],
     },
   ]
-  state.currentAccount = state.accounts[0]
+  state.currentAccount = {
+    name: 'Polizei Dortmund',
+    iban: '11111',
+    active: true,
+    restricted: true,
+    balance: 2000,
+    transactions: [
+      {
+        from: '1234',
+        money: '20000',
+        date: '19.09.2020 11:22',
+        id: 2,
+        positiv: true,
+      },
+    ],
+  }
   state.visible = true
+  // state.saved = [
+  //  { iban: '123213', name: 'Opfer' },
+  //  { iban: '454564', name: 'Opfer2' },
+  //  { iban: '884512', name: 'Opfer3' },
+  // ]
 }

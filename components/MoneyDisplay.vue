@@ -12,18 +12,21 @@
       object-right-top
     "
   >
-    {{ currentAccount.balance }} €
+    {{ value }} €
   </div>
 </template>
 
 <script lang="ts">
-import { mapState } from 'vuex'
+import Vue from 'vue'
 
-export default {
-  computed: {
-    ...mapState(['currentAccount']),
+export default Vue.extend({
+  props: {
+    value: {
+      type: String,
+      default: '0',
+    },
   },
-}
+})
 </script>
 
 <style>

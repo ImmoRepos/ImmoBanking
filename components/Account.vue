@@ -10,7 +10,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   props: {
     iban: {
       type: String,
@@ -64,7 +66,7 @@ export default {
       )
     },
   },
-}
+})
 </script>
 
 <style scoped>
