@@ -10,7 +10,7 @@
         rounded-lg
         bg-green-500
         hover:bg-green-600
-        h-40
+        h-24
         m-9
       "
       @click="$router.push('deposit')"
@@ -26,7 +26,7 @@
         rounded-lg
         bg-red-500
         hover:bg-red-600
-        h-40
+        h-24
         m-9
       "
       @click="push('withdraw')"
@@ -42,7 +42,7 @@
         rounded-lg
         bg-yellow-500
         hover:bg-yellow-600
-        h-40
+        h-24
         m-9
       "
       @click="push('transferselect')"

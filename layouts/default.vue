@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :style="visible ? 'display:grid' : 'display:none'">
+  <div class="wrapper" :style="visible ? 'display:block' : 'display:none'">
     <div class="grid-container">
       <div class="Main">
         <div class="grid-container2">
@@ -132,8 +132,8 @@ html {
 }
 
 .wrapper {
-  height: 800px;
-  width: 1300px;
+  height: 600px;
+  width: 900px;
   margin: auto;
 }
 
@@ -208,8 +208,8 @@ html {
   gap: 0px 0px;
   padding: 0px 8px;
   grid-template-areas:
-    'Title Title . Money X'
-    'Title Title . Money .'
+    'Title Title Money Money X'
+    'Title Title Money Money .'
     'Content Content Content Content Content'
     'Content Content Content Content Content';
 }
@@ -231,7 +231,7 @@ html {
 }
 
 .scrool {
-  height: 95%;
+  height: 88%;
   scrollbar-width: thin;
   scrollbar-color: dark;
 }

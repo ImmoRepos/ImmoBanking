@@ -24,7 +24,7 @@
           bg-gray-400
           select-none
           hover:bg-gray-600
-          w-48
+          w-28
           m-2
           text-4xl
         "
@@ -42,7 +42,7 @@
           bg-gray-400
           select-none
           hover:bg-gray-600
-          w-48
+          w-28
           m-2
           text-4xl
         "
@@ -62,7 +62,7 @@
           bg-red-500
           hover:bg-red-600
           m-2
-          w-11/12
+          w-10/12
           text-4xl
         "
         @click="submit"
@@ -117,10 +117,10 @@ export default Vue.extend({
 
 <style scoped>
 .numbers {
-  width: 80%;
+  width: 65%;
   height: 60%;
   position: absolute;
-  top: 65%;
+  top: 68%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -129,6 +129,7 @@ export default Vue.extend({
 }
 .bar {
   position: relative;
+  top: 4%;
 }
 .backbtn {
   position: absolute;

@@ -35,7 +35,7 @@
         overflow-auto
         scrool
       "
-      style="height: 90%"
+      style="height: 84%"
     >
       <div
         v-for="contact in saved"

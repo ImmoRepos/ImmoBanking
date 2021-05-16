@@ -5,7 +5,7 @@
       justify-center
       items-center
       money-bg
-      text-green-700 text-4xl
+      text-green-700 text-3xl
       rounded-lg
       filter
       brightness-200
@@ -32,7 +32,6 @@ export default Vue.extend({
 <style>
 .money-bg {
   background-color: #1d1d1d;
-  padding: 1rem;
-  margin: 1rem;
+  padding: 0.5rem;
 }
 </style>
